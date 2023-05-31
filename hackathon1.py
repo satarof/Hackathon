@@ -8,7 +8,7 @@ URL = 'https://www.mashina.kg/search/all/'
 def csv_mashina(data):
     with open('mashina.csv', 'a') as file:
         writer = csv.writer(file)
-        writer.writerow([data['image'], data['price'], data['title'], data['description']])
+        writer.writerow([data['title'], data['price'],  data['description'], data['image']])
 
 def mashina_html(link):
     request = requests.get(link)
@@ -23,7 +23,7 @@ def get_data(html):
         title = car.find('h2', class_="name").text.strip()
         price = car.find('strong').text
         description = re.sub(r'\s+', ' ', car.find('div', class_="block info-wrapper item-info-wrapper").text).strip()
-        dict_ = {'image':image,'title':title, 'price':price, 'description':description}
+        dict_ = {'title':title, 'price':price, 'description':description,  'image':image}
         csv_mashina(dict_)    
 
 def main():
